@@ -8,7 +8,7 @@ Two ways to run it:
 
 | | |
 |---|---|
-| 🌐 **Web app** | Lives in your browser. Your genome file never gets uploaded anywhere — it all happens on your machine. |
+| 🌐 **Web app** | Lives in your browser: [ashton-dias.github.io/genetic-health-analysis](https://ashton-dias.github.io/genetic-health-analysis/). Your genome file never gets uploaded anywhere — it all happens on your machine. |
 | 🖥️ **CLI (Python)** | Same brain, runs locally, spits reports out onto disk. |
 
 ---
