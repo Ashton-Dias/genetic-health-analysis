@@ -4,6 +4,7 @@ import { loadRefData } from "./lib/refdata.js";
 import { analyzeLifestyle, generateLifestyleReport } from "./lib/lifestyle.js";
 import { analyzeDisease, generateDiseaseReport, classifyPathogenic } from "./lib/disease.js";
 import { generateProtocol } from "./lib/protocol.js";
+import { LLM_PROMPTS } from "./lib/llmPrompts.js";
 
 const app = document.getElementById("app");
 
@@ -155,6 +156,22 @@ function renderResults({ genome, healthResults, diseaseAnalysis, classification,
       </div>
       <div class="report-view" id="report-view"></div>
     </div>
+
+    <div class="panel">
+      <h3 class="llm-tip-heading">\u{1F4A1} Get an even simpler, actionable version</h3>
+      <p class="llm-tip-body">
+        These reports are thorough on purpose, which makes them dense. We recommend downloading
+        a report above and uploading it to an LLM (ChatGPT, Claude, etc.) to get a plain-English
+        summary and a concrete action plan. A few prompts to try, once you've uploaded the file:
+      </p>
+      <div class="llm-prompts" id="llm-prompts"></div>
+      <p class="llm-tip-caveat">
+        ⚠️ <strong>Privacy note:</strong> uploading a report to a cloud LLM sends that
+        file to a third party — unlike your raw genome, which never leaves this tab. Only do
+        this with a service you trust, and consider a locally-run model (e.g. Ollama, LM Studio)
+        if you want the same on-device guarantee for this step too.
+      </p>
+    </div>
   `;
 
   const tabsEl = document.getElementById("tabs");
@@ -191,5 +208,30 @@ function renderResults({ genome, healthResults, diseaseAnalysis, classification,
   });
 
   renderTab();
+
+  const promptsEl = document.getElementById("llm-prompts");
+  for (const { title, prompt } of LLM_PROMPTS) {
+    const card = document.createElement("div");
+    card.className = "llm-prompt-card";
+    card.innerHTML = `
+      <div class="llm-prompt-text">
+        <div class="llm-prompt-title">${title}</div>
+        <div class="llm-prompt-body">${prompt}</div>
+      </div>
+      <button class="btn-secondary llm-copy-btn">Copy</button>
+    `;
+    const copyBtn = card.querySelector(".llm-copy-btn");
+    copyBtn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(prompt);
+        copyBtn.textContent = "Copied!";
+        setTimeout(() => (copyBtn.textContent = "Copy"), 1500);
+      } catch {
+        copyBtn.textContent = "Select & copy manually";
+      }
+    });
+    promptsEl.appendChild(card);
+  }
+
   resultsEl.scrollIntoView({ behavior: "smooth" });
 }
