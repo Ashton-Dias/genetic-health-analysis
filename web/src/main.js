@@ -20,14 +20,14 @@ app.innerHTML = `
     <div class="icon">\u{1F512}</div>
     <div>
       <strong>Your genetic data never leaves this device.</strong>
-      Everything runs locally in your browser — your genome file is never uploaded,
-      transmitted, or stored on any server. Reference databases (ClinVar, PharmGKB) are
-      loaded as static public files; only your genome stays on-device.
+      Everything runs locally in your browser — your genome file never gets uploaded,
+      transmitted, or stored anywhere. The reference databases (ClinVar, PharmGKB) just
+      load as static files; only your genome stays put on your device.
     </div>
   </div>
 
   <div class="panel" id="input-panel">
-    <label class="field" for="subject-name">Subject name (optional, included in reports)</label>
+    <label class="field" for="subject-name">Your name (optional, shows up in the reports)</label>
     <input type="text" id="subject-name" placeholder="e.g. Jane Doe" />
 
     <label class="field">23andMe raw data file</label>
@@ -44,7 +44,7 @@ app.innerHTML = `
   <div id="results" class="hidden"></div>
 
   <div class="footer-note">
-    Informational only — not a clinical diagnosis. Consult a physician or genetic counselor.
+    Informational only, not a clinical diagnosis — talk to an actual doctor or genetic counselor.
   </div>
 `;
 
@@ -150,18 +150,19 @@ function renderResults({ genome, healthResults, diseaseAnalysis, classification,
     </div>
 
     <div class="panel">
-      <h3 class="llm-tip-heading">\u{1F4A1} Get an even simpler, actionable version</h3>
+      <h3 class="llm-tip-heading">\u{1F4A1} Want the simple version?</h3>
       <p class="llm-tip-body">
-        These reports are thorough on purpose, which makes them dense. We recommend downloading
-        a report below and uploading it to an LLM (ChatGPT, Claude, etc.) to get a plain-English
-        summary and a concrete action plan. A few prompts to try, once you've uploaded the file:
+        These reports are thorough on purpose, which also makes them a lot to read. I'd genuinely
+        recommend downloading a report below and pasting it into an LLM (ChatGPT, Claude, whatever)
+        to get a plain-English summary and an actual plan. Some prompts worth stealing, once you've
+        uploaded the file:
       </p>
       <div class="llm-prompts" id="llm-prompts"></div>
       <p class="llm-tip-caveat">
-        ⚠️ <strong>Privacy note:</strong> uploading a report to a cloud LLM sends that
+        ⚠️ <strong>Worth knowing:</strong> uploading a report to a cloud LLM sends that
         file to a third party — unlike your raw genome, which never leaves this tab. Only do
-        this with a service you trust, and consider a locally-run model (e.g. Ollama, LM Studio)
-        if you want the same on-device guarantee for this step too.
+        this with a service you trust, or run a local model (Ollama, LM Studio) if you want the
+        same on-device guarantee for this step too.
       </p>
     </div>
 
