@@ -150,18 +150,10 @@ function renderResults({ genome, healthResults, diseaseAnalysis, classification,
     </div>
 
     <div class="panel">
-      <div class="tabs" id="tabs"></div>
-      <div class="report-toolbar">
-        <button class="btn-secondary" id="download-btn">⬇ Download this report (.md)</button>
-      </div>
-      <div class="report-view" id="report-view"></div>
-    </div>
-
-    <div class="panel">
       <h3 class="llm-tip-heading">\u{1F4A1} Get an even simpler, actionable version</h3>
       <p class="llm-tip-body">
         These reports are thorough on purpose, which makes them dense. We recommend downloading
-        a report above and uploading it to an LLM (ChatGPT, Claude, etc.) to get a plain-English
+        a report below and uploading it to an LLM (ChatGPT, Claude, etc.) to get a plain-English
         summary and a concrete action plan. A few prompts to try, once you've uploaded the file:
       </p>
       <div class="llm-prompts" id="llm-prompts"></div>
@@ -171,6 +163,14 @@ function renderResults({ genome, healthResults, diseaseAnalysis, classification,
         this with a service you trust, and consider a locally-run model (e.g. Ollama, LM Studio)
         if you want the same on-device guarantee for this step too.
       </p>
+    </div>
+
+    <div class="panel">
+      <div class="tabs" id="tabs"></div>
+      <div class="report-toolbar">
+        <button class="btn-secondary" id="download-btn">⬇ Download this report (.md)</button>
+      </div>
+      <div class="report-view" id="report-view"></div>
     </div>
   `;
 
