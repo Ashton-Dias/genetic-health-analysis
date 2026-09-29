@@ -13,21 +13,21 @@ let selectedFile = null;
 app.innerHTML = `
   <div class="header">
     <h1>Genetic Health Analysis</h1>
-    <p>23andMe raw data → lifestyle, disease risk, and drug-interaction reports</p>
+    <p>Dump in your 23andMe data, get back lifestyle, disease risk, and drug-interaction reports</p>
   </div>
 
   <div class="privacy-banner">
     <div class="icon">\u{1F512}</div>
     <div>
-      <strong>Your genetic data never leaves this device.</strong>
-      Everything runs locally in your browser — your genome file never gets uploaded,
-      transmitted, or stored anywhere. The reference databases (ClinVar, PharmGKB) just
-      load as static files; only your genome stays put on your device.
+      <strong>Your genetic data isn't going anywhere.</strong>
+      This all runs locally, right here in your browser — your genome file never gets
+      uploaded, sent anywhere, or stored on some server somewhere. The reference stuff
+      (ClinVar, PharmGKB) just loads as static files; your actual genome stays on your machine.
     </div>
   </div>
 
   <div class="panel" id="input-panel">
-    <label class="field" for="subject-name">Your name (optional, shows up in the reports)</label>
+    <label class="field" for="subject-name">Your name (optional, just shows up in the reports)</label>
     <input type="text" id="subject-name" placeholder="e.g. Jane Doe" />
 
     <label class="field">23andMe raw data file</label>
@@ -44,7 +44,7 @@ app.innerHTML = `
   <div id="results" class="hidden"></div>
 
   <div class="footer-note">
-    Informational only, not a clinical diagnosis — talk to an actual doctor or genetic counselor.
+    Just informational, not a diagnosis — go talk to a real doctor or genetic counselor.
   </div>
 `;
 
@@ -150,19 +150,20 @@ function renderResults({ genome, healthResults, diseaseAnalysis, classification,
     </div>
 
     <div class="panel">
-      <h3 class="llm-tip-heading">\u{1F4A1} Want the simple version?</h3>
+      <h3 class="llm-tip-heading">\u{1F4A1} Do this next, seriously</h3>
       <p class="llm-tip-body">
-        These reports are thorough on purpose, which also makes them a lot to read. I'd genuinely
-        recommend downloading a report below and pasting it into an LLM (ChatGPT, Claude, whatever)
-        to get a plain-English summary and an actual plan. Some prompts worth stealing, once you've
-        uploaded the file:
+        This report is dense because it's trying to be thorough, not because it's trying to be
+        useful on its own. Grab it below and paste it into an LLM (ChatGPT, Claude, whatever) and
+        talk to it like it's your own personal doctor who's actually read your DNA — ask it what
+        <em>you</em> specifically should do about <em>your</em> specific genome. That's the real
+        payoff here. Some prompts worth stealing, once you've uploaded the file:
       </p>
       <div class="llm-prompts" id="llm-prompts"></div>
       <p class="llm-tip-caveat">
-        ⚠️ <strong>Worth knowing:</strong> uploading a report to a cloud LLM sends that
-        file to a third party — unlike your raw genome, which never leaves this tab. Only do
-        this with a service you trust, or run a local model (Ollama, LM Studio) if you want the
-        same on-device guarantee for this step too.
+        ⚠️ <strong>One catch:</strong> a cloud LLM actually gets a copy of this file —
+        unlike your raw genome, which never left this tab. Only do this with a service you
+        actually trust, or run a local model (Ollama, LM Studio) if you want that same
+        on-device guarantee for this part too.
       </p>
     </div>
 
