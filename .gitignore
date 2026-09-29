@@ -1,0 +1,26 @@
+# Personal genetic/health data — never commit
+/data/genome.txt
+/data/genome_*.txt
+/reports/*.md
+/reports/comprehensive_results.json
+
+# PharmGKB data — CC-BY-SA terms require attribution/share-alike conditions
+# that don't fit a plain public mirror; kept local-only. See web/README.md.
+/data/clinical_annotations.tsv
+/data/clinical_ann_alleles.tsv
+/data/clinical_ann_evidence.tsv
+/data/clinical_ann_history.tsv
+/data/pharmgkb_annotations.zip
+/data/LICENSE.txt
+/data/README.pdf
+/web/public/refdata/pharmgkb.json
+
+# Failed download artifact (Incapsula bot-check page, not real data)
+/data/snpedia.gff
+
+# Python build artifacts
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
