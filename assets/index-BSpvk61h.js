@@ -497,18 +497,10 @@ It is NOT a clinical diagnosis or medical advice.
     </div>
 
     <div class="panel">
-      <div class="tabs" id="tabs"></div>
-      <div class="report-toolbar">
-        <button class="btn-secondary" id="download-btn">⬇ Download this report (.md)</button>
-      </div>
-      <div class="report-view" id="report-view"></div>
-    </div>
-
-    <div class="panel">
       <h3 class="llm-tip-heading">💡 Get an even simpler, actionable version</h3>
       <p class="llm-tip-body">
         These reports are thorough on purpose, which makes them dense. We recommend downloading
-        a report above and uploading it to an LLM (ChatGPT, Claude, etc.) to get a plain-English
+        a report below and uploading it to an LLM (ChatGPT, Claude, etc.) to get a plain-English
         summary and a concrete action plan. A few prompts to try, once you've uploaded the file:
       </p>
       <div class="llm-prompts" id="llm-prompts"></div>
@@ -518,6 +510,14 @@ It is NOT a clinical diagnosis or medical advice.
         this with a service you trust, and consider a locally-run model (e.g. Ollama, LM Studio)
         if you want the same on-device guarantee for this step too.
       </p>
+    </div>
+
+    <div class="panel">
+      <div class="tabs" id="tabs"></div>
+      <div class="report-toolbar">
+        <button class="btn-secondary" id="download-btn">⬇ Download this report (.md)</button>
+      </div>
+      <div class="report-view" id="report-view"></div>
     </div>
   `;const o=document.getElementById("tabs"),i=document.getElementById("report-view"),a=document.getElementById("download-btn"),l=Object.keys(s);let d=l[0];function c(){i.innerHTML=y.parse(s[d]),[...o.children].forEach(h=>h.classList.toggle("active",h.dataset.name===d))}for(const h of l){const m=document.createElement("button");m.className="tab",m.dataset.name=h,m.textContent=h,m.addEventListener("click",()=>{d=h,c()}),o.appendChild(m)}a.addEventListener("click",()=>{const h=new Blob([s[d]],{type:"text/markdown"}),m=URL.createObjectURL(h),p=document.createElement("a");p.href=m,p.download=`${d.replace(/[^a-z0-9]+/gi,"_")}.md`,p.click(),URL.revokeObjectURL(m)}),c();const f=document.getElementById("llm-prompts");for(const{title:h,prompt:m}of Kt){const p=document.createElement("div");p.className="llm-prompt-card",p.innerHTML=`
       <div class="llm-prompt-text">
