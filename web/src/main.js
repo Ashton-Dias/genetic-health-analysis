@@ -116,17 +116,17 @@ async function runAnalysis() {
       subjectName,
     });
 
-    setStatus("Done. Nothing was uploaded — all processing happened in this tab.");
+    setStatus("Done. Nothing was uploaded — all processing happened in this tab.", false);
   } catch (err) {
     console.error(err);
-    setStatus(`Error: ${err.message}`);
+    setStatus(`Error: ${err.message}`, false);
   } finally {
     analyzeBtn.disabled = false;
   }
 }
 
-function setStatus(text) {
-  statusLine.innerHTML = `<span class="spinner"></span>${text}`;
+function setStatus(text, spinning = true) {
+  statusLine.innerHTML = spinning ? `<span class="spinner"></span>${text}` : text;
 }
 
 function renderResults({ genome, healthResults, diseaseAnalysis, classification, reports }) {
