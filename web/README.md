@@ -8,7 +8,9 @@ protocol) entirely in the browser.
 File API and processed in memory. The only network requests this app makes
 are to fetch its own bundled static reference files (`public/refdata/*.json`
 — ClinVar, PharmGKB, and the curated SNP database, all public reference data
-with no user information). You can verify this yourself: open devtools →
+with no user information). Fonts (Inter and Instrument Serif) are bundled
+from npm via `@fontsource` packages and served from the same origin, so no
+third-party font requests are made. You can verify this yourself: open devtools →
 Network while running an analysis and confirm no request contains your
 genome data.
 

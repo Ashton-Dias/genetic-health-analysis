@@ -1,3 +1,6 @@
+import "@fontsource-variable/inter";
+import "@fontsource/instrument-serif/400-italic.css";
+import "./style.css";
 import { marked } from "marked";
 import { parseGenomeFile } from "./lib/genome.js";
 import { loadRefData } from "./lib/refdata.js";
@@ -11,41 +14,86 @@ const app = document.getElementById("app");
 let selectedFile = null;
 
 app.innerHTML = `
-  <div class="header">
-    <h1>Genetic Health Analysis</h1>
-    <p>Dump in your 23andMe data, get back lifestyle, disease risk, and drug-interaction reports</p>
-  </div>
+  <header class="topbar on-dark">
+    <a class="brand" href="#top" aria-label="Genetic Health Analysis">
+      <span class="brand-mark">gh</span>
+      <span class="brand-sub">Genetic<br />Health</span>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#privacy">Privacy</a>
+      <a href="#analyze">Analyze</a>
+      <a href="#disclaimer">Disclaimer</a>
+    </nav>
+  </header>
 
-  <div class="privacy-banner">
-    <div class="icon">\u{1F512}</div>
-    <div>
-      <strong>Your genetic data isn't going anywhere.</strong>
-      This all runs locally, right here in your browser — your genome file never gets
-      uploaded, sent anywhere, or stored on some server somewhere. The reference stuff
-      (ClinVar, PharmGKB) just loads as static files; your actual genome stays on your machine.
+  <section class="hero on-dark" id="top">
+    <div class="hero-meta">
+      <span class="mono">23andMe raw data<br />Reports in seconds</span>
+      <span class="mono hero-meta-right">Private<br />In-browser. Nothing uploaded.</span>
     </div>
-  </div>
-
-  <div class="panel" id="input-panel">
-    <label class="field" for="subject-name">Your name (optional, just shows up in the reports)</label>
-    <input type="text" id="subject-name" placeholder="e.g. Jane Doe" />
-
-    <label class="field">23andMe raw data file</label>
-    <div class="dropzone" id="dropzone">
-      <div>Drop your genome.txt file here, or click to choose</div>
-      <div class="filename" id="filename"></div>
+    <svg class="hero-figure" viewBox="0 0 400 400" aria-hidden="true" focusable="false">
+      <circle cx="200" cy="200" r="180" />
+      <circle cx="200" cy="200" r="120" />
+      <ellipse cx="200" cy="200" rx="150" ry="60" transform="rotate(35 200 200)" />
+      <ellipse cx="200" cy="200" rx="150" ry="60" transform="rotate(-35 200 200)" />
+      <ellipse cx="200" cy="200" rx="150" ry="60" transform="rotate(90 200 200)" />
+      <path class="cross" d="M200 8v24M200 368v24M8 200h24M368 200h24" />
+    </svg>
+    <div class="hero-copy">
+      <p class="eyebrow mono"><span class="rule"></span>Genetic Health Analysis</p>
+      <h1 class="hero-title">Your genome.<br />On your device.</h1>
+      <p class="hero-italic" aria-hidden="true">Private.</p>
+      <p class="hero-lede">
+        Drop in your 23andMe data and get back lifestyle, disease-risk and drug-interaction reports.
+      </p>
+      <a class="link-cta mono" href="#analyze">Start the analysis <span aria-hidden="true">\u2198</span></a>
     </div>
-    <input type="file" id="file-input" accept=".txt,.csv,.tsv" class="hidden" />
+  </section>
 
-    <button class="btn-primary" id="analyze-btn" disabled>Analyze (locally, in-browser)</button>
-    <div class="status-line" id="status-line"></div>
-  </div>
+  <section class="section on-dark" id="privacy">
+    <div class="wrap">
+      <p class="marker mono">01 / Privacy</p>
+      <h2 class="section-title">Your genetic data <em>isn't going anywhere.</em></h2>
+      <p class="prose-lg">
+        This all runs locally, right here in your browser. Your genome file never gets
+        uploaded, sent anywhere, or stored on some server somewhere. The reference data
+        (ClinVar, PharmGKB) just loads as static files; your actual genome stays on your machine.
+      </p>
+    </div>
+  </section>
 
-  <div id="results" class="hidden"></div>
+  <section class="section" id="analyze">
+    <div class="wrap">
+      <p class="marker mono">02 / Analyze</p>
+      <h2 class="section-title">Bring your <em>file.</em></h2>
 
-  <div class="footer-note">
-    Just informational, not a diagnosis — go talk to a real doctor or genetic counselor.
-  </div>
+      <div class="panel" id="input-panel">
+        <label class="field mono" for="subject-name">Your name (optional, shows up in the reports)</label>
+        <input type="text" id="subject-name" placeholder="e.g. Jane Doe" />
+
+        <label class="field mono" for="file-input">23andMe raw data file</label>
+        <div class="dropzone" id="dropzone" role="button" tabindex="0">
+          <div class="dropzone-label mono">Drop your genome.txt here, or click to choose <span aria-hidden="true">\u2197</span></div>
+          <div class="filename mono" id="filename"></div>
+        </div>
+        <input type="file" id="file-input" accept=".txt,.csv,.tsv" class="hidden" />
+
+        <button class="btn-primary mono" id="analyze-btn" disabled>Analyze (locally, in-browser) <span aria-hidden="true">\u2198</span></button>
+        <div class="status-line mono" id="status-line" role="status" aria-live="polite"></div>
+      </div>
+
+      <div id="results" class="hidden"></div>
+    </div>
+  </section>
+
+  <footer class="footer on-dark" id="disclaimer">
+    <div class="wrap">
+      <p class="marker mono">03 / Disclaimer</p>
+      <p class="disclaimer">
+        Just informational, not a diagnosis. Go talk to a real doctor or genetic counselor.
+      </p>
+    </div>
+  </footer>
 `;
 
 const dropzone = document.getElementById("dropzone");
@@ -57,6 +105,12 @@ const resultsEl = document.getElementById("results");
 const subjectNameInput = document.getElementById("subject-name");
 
 dropzone.addEventListener("click", () => fileInput.click());
+dropzone.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" || e.key === " ") {
+    e.preventDefault();
+    fileInput.click();
+  }
+});
 dropzone.addEventListener("dragover", (e) => {
   e.preventDefault();
   dropzone.classList.add("dragover");
@@ -150,7 +204,8 @@ function renderResults({ genome, healthResults, diseaseAnalysis, classification,
     </div>
 
     <div class="panel">
-      <h3 class="llm-tip-heading">\u{1F4A1} Do this next, seriously</h3>
+      <p class="marker mono">Next step</p>
+      <h3 class="llm-tip-heading">Do this next, <em>seriously.</em></h3>
       <p class="llm-tip-body">
         This report is dense because it's trying to be thorough, not because it's trying to be
         useful on its own. Grab it below and paste it into an LLM (ChatGPT, Claude, whatever) and
@@ -160,7 +215,7 @@ function renderResults({ genome, healthResults, diseaseAnalysis, classification,
       </p>
       <div class="llm-prompts" id="llm-prompts"></div>
       <p class="llm-tip-caveat">
-        ⚠️ <strong>One catch:</strong> a cloud LLM actually gets a copy of this file —
+        <strong>One catch:</strong> a cloud LLM actually gets a copy of this file —
         unlike your raw genome, which never left this tab. Only do this with a service you
         actually trust, or run a local model (Ollama, LM Studio) if you want that same
         on-device guarantee for this part too.
@@ -170,7 +225,7 @@ function renderResults({ genome, healthResults, diseaseAnalysis, classification,
     <div class="panel">
       <div class="tabs" id="tabs"></div>
       <div class="report-toolbar">
-        <button class="btn-secondary" id="download-btn">⬇ Download this report (.md)</button>
+        <button class="btn-secondary mono" id="download-btn">Download this report (.md) <span aria-hidden="true">\u2197</span></button>
       </div>
       <div class="report-view" id="report-view"></div>
     </div>
@@ -189,7 +244,7 @@ function renderResults({ genome, healthResults, diseaseAnalysis, classification,
 
   for (const name of names) {
     const btn = document.createElement("button");
-    btn.className = "tab";
+    btn.className = "tab mono";
     btn.dataset.name = name;
     btn.textContent = name;
     btn.addEventListener("click", () => {
@@ -220,7 +275,7 @@ function renderResults({ genome, healthResults, diseaseAnalysis, classification,
         <div class="llm-prompt-title">${title}</div>
         <div class="llm-prompt-body">${prompt}</div>
       </div>
-      <button class="btn-secondary llm-copy-btn">Copy</button>
+      <button class="btn-secondary mono llm-copy-btn">Copy</button>
     `;
     const copyBtn = card.querySelector(".llm-copy-btn");
     copyBtn.addEventListener("click", async () => {
