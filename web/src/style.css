@@ -279,18 +279,24 @@ button { font: inherit; cursor: pointer; border-radius: 0; }
 /* ---------- Results ---------- */
 .summary-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   border-top: 1px solid var(--line);
   border-left: 1px solid var(--line);
 }
 .stat {
+  min-width: 0;
+  overflow: hidden;
+  container-type: inline-size;
   padding: 18px 16px;
   border-right: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
 .stat .num {
   font-weight: 500;
-  font-size: clamp(2rem, 4vw, 2.8rem);
+  /* sized from the tile's own width so 7+ character values always fit */
+  font-size: clamp(1.5rem, 13cqi, 2.8rem);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
   line-height: 1;
   letter-spacing: -0.05em;
   color: var(--accent);
@@ -416,6 +422,7 @@ button { font: inherit; cursor: pointer; border-radius: 0; }
 
 /* ---------- Small screens ---------- */
 @media (max-width: 640px) {
+  .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .brand-sub { display: none; }
   .hero-meta { flex-direction: column; }
   .hero-meta-right { text-align: left; }
