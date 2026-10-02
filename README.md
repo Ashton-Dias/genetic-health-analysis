@@ -6,7 +6,6 @@ So I had a 23andMe file just sitting in my downloads folder doing absolutely not
 
 ![Demo of the Genetic Health Analysis web app](docs/demo.gif)
 
-*Demo of the web app running locally in the browser.*
 
 Two ways to run it:
 
