@@ -4,9 +4,10 @@
  * Ported from scripts/run_full_analysis.py::generate_actionable_protocol.
  */
 import { carrierPhenotypeNotes } from "./disease.js";
+import { formatLocalTimestamp } from "./time.js";
 
 export function generateProtocol(healthResults, diseaseAnalysis, classification, subjectName) {
-  const now = new Date().toISOString().slice(0, 16).replace("T", " ");
+  const now = formatLocalTimestamp();
   const subjectLine = subjectName ? `\n**Subject:** ${subjectName}` : "";
 
   const findingsDict = {};

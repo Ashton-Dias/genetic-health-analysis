@@ -8,6 +8,7 @@
  * conversion time (23andMe genotypes cannot reliably represent indels), so
  * every entry here is a true single-nucleotide variant.
  */
+import { formatLocalTimestamp } from "./time.js";
 
 export function analyzeDisease(genome, refdata) {
   const clinvar = refdata.clinvar;
@@ -184,7 +185,7 @@ export function classifyPathogenic(findings) {
 
 export function generateDiseaseReport(analysis, genomeTotalSnps, subjectName) {
   const { findings, stats } = analysis;
-  const now = new Date().toISOString().slice(0, 16).replace("T", " ");
+  const now = formatLocalTimestamp();
 
   const { affected, carriers, hetUnknown } = classifyPathogenic(findings);
 

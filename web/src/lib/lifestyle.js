@@ -3,6 +3,7 @@
  * Ported from scripts/run_full_analysis.py::analyze_lifestyle_health and
  * scripts/generate_exhaustive_report.py.
  */
+import { formatLocalTimestamp } from "./time.js";
 
 function reversed(genotype) {
   return genotype.length === 2 ? genotype.split("").reverse().join("") : genotype;
@@ -170,7 +171,7 @@ function generateExecutiveSummary(data) {
 
   const lines = [];
   lines.push("# Exhaustive Genetic Health Report", "");
-  lines.push(`**Generated:** ${new Date().toISOString().slice(0, 16).replace("T", " ")}`, "");
+  lines.push(`**Generated:** ${formatLocalTimestamp()}`, "");
   lines.push("---", "", "## Executive Summary", "");
   lines.push("### Genome Overview");
   lines.push(`- **Total SNPs in Raw Data:** ${summary.total_snps.toLocaleString()}`);
