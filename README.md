@@ -4,6 +4,10 @@ So I had a 23andMe file just sitting in my downloads folder doing absolutely not
 
 **Do yourself a favor and pair this with an LLM.** Like, seriously, don't just skim the raw report and close the tab. Dump it into ChatGPT or Claude and talk to it like it's your own personal doctor who has actually read your DNA — ask it what YOU specifically should do about YOUR specific genome. That's honestly the whole point. The report is the raw material; the LLM conversation is where it gets useful. I've got some copy-paste prompts for this further down.
 
+![Demo of the Genetic Health Analysis web app](docs/demo.gif)
+
+*Demo of the web app running locally in the browser.*
+
 Two ways to run it:
 
 | | |
